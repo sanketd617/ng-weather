@@ -7,11 +7,13 @@ import {FormsModule} from '@angular/forms';
 import {CitiesService} from './cities.service';
 import {HttpClientModule} from '@angular/common/http';
 import {WeatherService} from './weather.service';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CityComponent
+    CityComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

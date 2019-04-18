@@ -6,10 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Angular Weather';
+  appName = 'Angular Weather';
   numCities = 9;
   updateFlag = true;
   updateInterval = 10000;
+
+  setFlag(flag){
+    this.updateFlag = flag;
+  }
 
   range(n) {
     const a = [];

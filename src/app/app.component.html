@@ -1,5 +1,8 @@
 
 <div class="row">
+  <div class="col-12 no-padding">
+    <app-header [updateFlag]="updateFlag" (updateEvent)="setFlag($event)" [appName]="appName"></app-header>
+  </div>
   <div class="d-none d-lg-block col-lg-1 col-xl-2"></div>
   <div class="col-12 col-lg-10 col-xl-8">
     <div class="row">
