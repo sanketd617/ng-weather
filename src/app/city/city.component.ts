@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CitiesService} from '../cities.service';
 
 const icons = {
   'clear sky': ['fas fa-sun', 'far fa-moon'],
@@ -31,7 +32,7 @@ const background = {
 })
 export class CityComponent implements OnInit {
   city: string;
-  country: string;
+  cityId: string;
   temp: number;
   min: number;
   max: number;
@@ -39,9 +40,11 @@ export class CityComponent implements OnInit {
   icon: string;
   background: string;
   rotated = false;
+  loading = false;
   timer: number;
+  options = [];
 
-  constructor() {
+  constructor(private citiesService: CitiesService) {
     // this.city = ['Chandrapur', 'Nagpur', 'Nanded'][Math.floor(Math.random() * 3)];
     // this.country = ['IN', 'US', 'UK'][Math.floor(Math.random() * 3)];
     // this.temp = Math.floor(Math.random() * 45);
@@ -56,11 +59,20 @@ export class CityComponent implements OnInit {
   }
 
   cityChanged() {
+    this.loading = false;
     clearTimeout(this.timer);
 
     this.timer = setTimeout(() => {
-      console.log(this.city);
+      this.loading = true;
+      this.options = this.citiesService.getCities();
+      this.loading = false;
     }, 1000);
+  }
+
+  handleCardClick(){
+    if(this.city)
+      return;
+    this.rotated = !this.rotated;
   }
 
 }

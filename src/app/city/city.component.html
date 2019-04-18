@@ -1,6 +1,6 @@
 
 <div class="root">
-  <div (click)="rotated = !rotated" [class]="rotated ? 'content rotated' : 'content'" [ngStyle]="{'background-color': (background ? background[0] : 'lightgrey')}">
+  <div (click)="handleCardClick()" [class]="rotated ? 'content rotated' : 'content'" [ngStyle]="{'background-color': (background ? background[0] : 'lightgrey')}">
     <div class="min-max">
       <div class="min"><small>{{ min ? 'min' : ''}}</small> {{ min ? min+'°C' : ''}}</div>
       <div class="max"><small>{{ max ? 'max' : ''}}</small> {{ max ? max+'°C' : ''}}</div>
@@ -12,12 +12,14 @@
       {{ temp ? temp+'°C' : ''}}
     </div>
     <div class="temp-desc">
-      {{ description ? description: 'Tap to select city'}}
+      {{ loading ? '' : description ? description: 'Tap to select city'}}
     </div>
     <div class="divider"></div>
-    <div class="city-country">
-      <div class="city">{{ city ? city+'°C' : ''}}</div>
-      <div class="country">{{ country ? country+'°C' : ''}}</div>
+    <div class="city-edit">
+      <div class="city">{{ city ? city : ''}}</div>
+      <div class="edit">
+        <i *ngIf="city" (click)="city ? rotated = !rotated : null" class="fa fa-edit"></i>
+      </div>
     </div>
   </div>
 
@@ -28,7 +30,17 @@
       </div>
     </div>
     <div class="options">
-      options
+      <div *ngIf="!loading">
+        <div *ngFor="let option of options;" class="option" (click)="city=option.name; cityId=option.id; rotated=!rotated; loading=true">
+          {{option.name}}
+        </div>
+      </div>
+
+      <div *ngIf="loading && rotated" class="loaderContainer">
+        <div class="spinner-grow" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     </div>
 
   </div>

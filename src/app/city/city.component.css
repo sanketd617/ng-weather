@@ -25,32 +25,32 @@
   transform: rotateY(180deg);
 }
 
-.root > .content.back{
-  background-color: lightskyblue !important;
-}
-
 .root > .content > *{
   width: 100%;
   position: relative;
 }
 
-/*min/max and city/country part*/
+/*min/max and city/edit part*/
 
-.root > .content > .min-max, .root > .content > .city-country{
+.root > .content > .min-max, .root > .content > .city-edit{
   height: 15%;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.min, .max, .city, .country{
+.min, .max, .city, .edit{
   width: 50%;
   padding-left: 1rem;
 }
 
-.max, .country{
+.max, .edit{
   text-align: right;
   padding-right: 1rem;
+}
+
+.edit{
+  color: #2196f3;
 }
 
 /*icon part*/
@@ -104,6 +104,11 @@
 
 /*backface*/
 
+.root > .content.back{
+  background-color: white !important;
+  backface-visibility: hidden;
+}
+
 .root > .content.back > *{
   padding: 0.5rem;
 }
@@ -114,4 +119,21 @@
 
 .root > .content.back .form{
   height: 30%;
+}
+
+.root > .content.back .options .option{
+  padding: 0.25rem;
+  border-bottom: 1px solid lightgray;
+  color: #2196f3;
+}
+
+.root > .content.back .options .option:first-child{
+  border-top: 1px solid lightgray;
+}
+
+.root > .content.back .loaderContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
 }
