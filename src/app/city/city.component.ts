@@ -38,6 +38,9 @@ const background = {
   Tornado: ['#bbdefb', '#90caf9'],
 };
 
+const color = ['#424242', '#ffffff'];
+const iconColor = ['rgba(255, 255, 255, 0.7)', 'rgba(255, 255, 255, 0.3)'];
+
 @Component({
   selector: 'app-city',
   templateUrl: './city.component.html',
@@ -52,6 +55,8 @@ export class CityComponent implements OnInit {
   description: string;
   icon: string;
   background: string;
+  color: string;
+  iconColor: string;
   rotated = false;
   loading = false;
   timer: number;
@@ -108,13 +113,19 @@ export class CityComponent implements OnInit {
       .subscribe(
         (weather) => {
           console.log(weather);
+          const now = Date.now() / 1000;
+          const end = weather.sys.sunset + 3600 * 12;
+          const dayNightIndex = now > weather.sys.sunset && now < end ? 1 : 0;
           this.min = weather.main.temp_min - 273.15;
           this.max = weather.main.temp_max - 273.15;
           this.temp = weather.main.temp - 273.15;
           this.description = weather.weather[0].description;
           this.loading = false;
-          this.icon = icons[weather.weather[0].main][0];
-          this.background = background[weather.weather[0].main];
+          this.icon = icons[weather.weather[0].main][dayNightIndex];
+          this.background = background[weather.weather[0].main][dayNightIndex];
+          this.color = color[dayNightIndex];
+          this.iconColor = iconColor[dayNightIndex];
+          console.log(end, now);
         },
         (error) => this.error = error
       );

@@ -1,11 +1,25 @@
 
 <div class="root">
-  <div (click)="handleCardClick()" [class]="rotated ? 'content rotated' : 'content'" [ngStyle]="{'background-color': (background ? background[0] : 'lightgrey')}">
+  <div (click)="handleCardClick()" [class]="rotated ? 'content rotated' : 'content'" [ngStyle]="{'background-color': (background ? background : 'lightgrey'), 'color': (color ? color : '#424242')}">
     <div class="min-max">
-      <div class="min"><small>{{ min ? 'min' : ''}}</small> {{ min ? min.toFixed(1)+'°C' : ''}}</div>
-      <div class="max"><small>{{ max ? 'max' : ''}}</small> {{ max ? max.toFixed(1)+'°C' : ''}}</div>
+      <div class="min">
+        <div>
+          <small>{{ min ? 'min' : ''}}</small>
+        </div>
+        <div>
+          {{ min ? min.toFixed(1)+'°C' : ''}}
+        </div>
+      </div>
+      <div class="max">
+        <div>
+          <small>{{ max ? 'max' : ''}}</small>
+        </div>
+        <div>
+          {{ max ? max.toFixed(1)+'°C' : ''}}
+        </div>
+      </div>
     </div>
-    <div class="icon">
+    <div class="icon" [ngStyle]="{'color': iconColor ? iconColor : 'rgba(255, 255, 255, 0.7)'}">
       <i [class]="icon ? icon : 'fas fa-ban'"></i>
     </div>
     <div class="temp">
