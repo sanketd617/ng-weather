@@ -1,0 +1,10 @@
+
+.cityContainer{
+  padding: 0.25rem;
+}
+
+.cityContainer:after{
+  content: "";
+  display: block;
+  padding-bottom: calc(120%);
+}
