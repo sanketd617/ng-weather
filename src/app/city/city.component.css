@@ -13,11 +13,20 @@
   height: 98%;
   width: 98%;
   box-shadow: 1px 1px 5px lightgray, -1px 1px 5px lightgray;
-  background-color: burlywood;
   text-transform: uppercase;
   border-radius: 0.5rem;
   font-weight: bold;
   color: #424242;
+  transition-duration: 0.3s;
+  backface-visibility: hidden;
+}
+
+.root > .content.rotated{
+  transform: rotateY(180deg);
+}
+
+.root > .content.back{
+  background-color: lightskyblue !important;
 }
 
 .root > .content > *{
@@ -93,3 +102,16 @@
 }
 
 
+/*backface*/
+
+.root > .content.back > *{
+  padding: 0.5rem;
+}
+
+.root > .content.back .options{
+  height: 70%;
+}
+
+.root > .content.back .form{
+  height: 30%;
+}

@@ -1,23 +1,35 @@
 
 <div class="root">
-  <div class="content">
+  <div (click)="rotated = !rotated" [class]="rotated ? 'content rotated' : 'content'" [ngStyle]="{'background-color': (background ? background[0] : 'lightgrey')}">
     <div class="min-max">
-      <div class="min"><small>min</small> {{min}}°C</div>
-      <div class="max"><small>max</small> {{max}}°C</div>
+      <div class="min"><small>{{ min ? 'min' : ''}}</small> {{ min ? min+'°C' : ''}}</div>
+      <div class="max"><small>{{ max ? 'max' : ''}}</small> {{ max ? max+'°C' : ''}}</div>
     </div>
     <div class="icon">
-      <i class="fas fa-sun"></i>
+      <i [class]="icon ? icon : 'fas fa-ban'"></i>
     </div>
     <div class="temp">
-      {{temp}}°C
+      {{ temp ? temp+'°C' : ''}}
     </div>
     <div class="temp-desc">
-      {{description}}
+      {{ description ? description: 'Tap to select city'}}
     </div>
     <div class="divider"></div>
     <div class="city-country">
-      <div class="city">{{city}}</div>
-      <div class="country">{{country}}</div>
+      <div class="city">{{ city ? city+'°C' : ''}}</div>
+      <div class="country">{{ country ? country+'°C' : ''}}</div>
     </div>
+  </div>
+
+  <div [class]="!rotated ? 'content back rotated' : 'content back'">
+    <div class="form">
+      <div class="form-group">
+        <input (keyup)="cityChanged()" [(ngModel)]="city" placeholder="City.." type="text" class="form-control" id="city">
+      </div>
+    </div>
+    <div class="options">
+      options
+    </div>
+
   </div>
 </div>
