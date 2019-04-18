@@ -1,0 +1,95 @@
+
+.root{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.root > .content{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 98%;
+  width: 98%;
+  box-shadow: 1px 1px 5px lightgray, -1px 1px 5px lightgray;
+  background-color: burlywood;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  color: #424242;
+}
+
+.root > .content > *{
+  width: 100%;
+  position: relative;
+}
+
+/*min/max and city/country part*/
+
+.root > .content > .min-max, .root > .content > .city-country{
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.min, .max, .city, .country{
+  width: 50%;
+  padding-left: 1rem;
+}
+
+.max, .country{
+  text-align: right;
+  padding-right: 1rem;
+}
+
+/*icon part*/
+
+.root > .content > .icon{
+  height: 39%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .root > .content > .icon{
+    font-size: 60px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .root > .content > .icon{
+    font-size: 100px;
+  }
+}
+
+/*temp value part*/
+
+.root > .content > .temp{
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+}
+
+/*temp desc part*/
+.root > .content > .temp-desc{
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*divider*/
+.root > .content > .divider{
+  height: 1%;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0;
+}
+
+
