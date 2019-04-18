@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CitiesService} from '../cities.service';
 import {WeatherService} from '../weather.service';
 
@@ -62,6 +62,8 @@ export class CityComponent implements OnInit {
   timer: number;
   options = [];
   error: string;
+  @Input() updateFlag;
+  @Input() updateInterval;
 
   constructor(private citiesService: CitiesService, private weatherService: WeatherService) {
 
@@ -106,16 +108,20 @@ export class CityComponent implements OnInit {
     this.city = option.name;
     this.cityId = option.id;
     this.rotated = !this.rotated;
-    this.loading = true;
     this.options = [];
+    this.getCity();
+  }
 
+  getCity() {
+    this.loading = true;
     this.weatherService.getWeather(this.cityId)
       .subscribe(
         (weather) => {
           console.log(weather);
-          const now = Date.now() / 1000;
-          const end = weather.sys.sunset + 3600 * 12;
-          const dayNightIndex = now > weather.sys.sunset && now < end ? 1 : 0;
+          const sunrise = weather.sys.sunrise * 1000;
+          const sunset = weather.sys.sunset * 1000;
+          const now = Date.now();
+          const dayNightIndex = now > sunrise && now < sunset ? 0 : 1;
           this.min = weather.main.temp_min - 273.15;
           this.max = weather.main.temp_max - 273.15;
           this.temp = weather.main.temp - 273.15;
@@ -125,7 +131,10 @@ export class CityComponent implements OnInit {
           this.background = background[weather.weather[0].main][dayNightIndex];
           this.color = color[dayNightIndex];
           this.iconColor = iconColor[dayNightIndex];
-          console.log(end, now);
+
+          if (this.updateFlag) {
+            setTimeout(() => this.getCity(), this.updateInterval);
+          }
         },
         (error) => this.error = error
       );

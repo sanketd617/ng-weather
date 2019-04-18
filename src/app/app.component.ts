@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Angular Weather';
   numCities = 9;
-  isMaterial = true;
+  updateFlag = true;
+  updateInterval = 10000;
 
   range(n) {
     const a = [];
