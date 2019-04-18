@@ -7,10 +7,10 @@ const icons = {
   'scattered clouds': ['fas fa-cloud-meatball', 'fas fa-cloud-meatball'],
   'broken clouds': ['fas fa-cloud-meatball', 'fas fa-cloud-meatball'],
   'shower rain': ['fas fa-cloud-sun-rain', 'fas fa-cloud-moon-rain'],
-  'rain': ['fas fa-cloud-showers-heavy', 'fas fa-cloud-showers-heavy'],
-  'thunderstorm': ['fas fa-bolt', 'fas fa-bolt'],
-  'snow': ['fas fa-snowflake', 'fas fa-snowflake'],
-  'mist': ['fas fa-water', 'fas fa-water']
+  rain: ['fas fa-cloud-showers-heavy', 'fas fa-cloud-showers-heavy'],
+  thunderstorm: ['fas fa-bolt', 'fas fa-bolt'],
+  snow: ['fas fa-snowflake', 'fas fa-snowflake'],
+  mist: ['fas fa-water', 'fas fa-water']
 };
 
 const background = {
@@ -19,10 +19,10 @@ const background = {
   'scattered clouds': ['#e1f5fe', '#536dfe'],
   'broken clouds': ['#e1f5fe', '#536dfe'],
   'shower rain': ['#4dd0e1', '#311b92'],
-  'rain': ['#4dd0e1', '#311b92'],
-  'thunderstorm': ['#4dd0e1', '#311b92'],
-  'snow': ['#bbdefb', '#90caf9'],
-  'mist': ['#bbdefb', '#90caf9']
+  rain: ['#4dd0e1', '#311b92'],
+  thunderstorm: ['#4dd0e1', '#311b92'],
+  snow: ['#bbdefb', '#90caf9'],
+  mist: ['#bbdefb', '#90caf9']
 };
 
 @Component({
@@ -63,21 +63,40 @@ export class CityComponent implements OnInit {
     this.loading = false;
     clearTimeout(this.timer);
 
+    if (this.city.length < 3) {
+      this.error = 'City name must be of atleast 3 characters';
+      return;
+    }
+
+    this.error = '';
+
     this.timer = setTimeout(() => {
       this.loading = true;
       this.citiesService.getCities()
         .subscribe(
-          (cities) => this.options = cities.filter(city => city.name.toLowerCase().includes(this.city.toLowerCase())),
+          (cities) => {
+            this.options = cities.filter(city => city.name.toLowerCase().includes(this.city.toLowerCase()));
+            this.loading = false;
+          },
           (error) => this.error = error
           );
-      this.loading = false;
+      this.loading = true;
     }, 1000);
   }
 
-  handleCardClick(){
-    if(this.city)
+  handleCardClick() {
+    if (this.city) {
       return;
+    }
     this.rotated = !this.rotated;
+  }
+
+  selectCity(option) {
+    this.city = option.name;
+    this.cityId = option.id;
+    this.rotated = !this.rotated;
+    this.loading = true;
+    this.options = [];
   }
 
 }

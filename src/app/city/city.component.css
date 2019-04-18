@@ -105,8 +105,34 @@
   height: 1%;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 0;
+  overflow: hidden;
 }
 
+.root > .content > .divider > .dLoader{
+  width: 50%;
+  height: 100%;
+  background-color: #2196f3;
+  animation: load 1s infinite linear;
+  transform-origin: 0% 50%;
+}
+
+@keyframes load {
+  0%{
+    transform: translateX(0) scaleX(1);
+  }
+  25%{
+    transform: scaleX(2) translateX(0);
+  }
+  50%{
+    transform: scaleX(1) translateX(100%);
+  }
+  75%{
+    transform: scaleX(2) translateX(0);
+  }
+  100%{
+    transform: scaleX(1) translateX(0);
+  }
+}
 
 /*backface*/
 

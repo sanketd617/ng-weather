@@ -14,7 +14,9 @@
     <div class="temp-desc">
       {{ loading ? '' : description ? description: 'Tap to select city'}}
     </div>
-    <div class="divider"></div>
+    <div class="divider">
+      <div *ngIf="loading" class="dLoader"></div>
+    </div>
     <div class="city-edit">
       <div class="city">{{ city ? city.substr(0, 10) + (city.length > 10 ? "..." : "") : ''}}</div>
       <div class="edit">
@@ -31,7 +33,7 @@
     </div>
     <div class="options">
       <div *ngIf="!loading">
-        <div *ngFor="let option of options;" class="option" (click)="city=option.name; cityId=option.id; rotated=!rotated; loading=true">
+        <div *ngFor="let option of options;" class="option" (click)="selectCity(option)">
           {{option.name+", "+option.country}}
         </div>
       </div>
