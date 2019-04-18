@@ -9,7 +9,7 @@ export class AppComponent {
   appName = 'Angular Weather';
   numCities = 9;
   updateFlag = true;
-  updateInterval = 10000;
+  updateInterval = 60000*5;
 
   setFlag(flag){
     this.updateFlag = flag;

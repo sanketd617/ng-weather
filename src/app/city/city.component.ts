@@ -91,6 +91,11 @@ export class CityComponent implements OnInit {
         .subscribe(
           (cities) => {
             this.options = cities.filter(city => city.name.toLowerCase().includes(this.city.toLowerCase()));
+
+            if(this.options.length === 0){
+              this.error = "No city found!";
+            }
+
             this.loading = false;
           },
           (error) => this.error = error
@@ -119,7 +124,6 @@ export class CityComponent implements OnInit {
     this.weatherService.getWeather(this.cityId)
       .subscribe(
         (weather) => {
-          console.log(weather);
           const sunrise = weather.sys.sunrise * 1000;
           const sunset = weather.sys.sunset * 1000;
           const now = Date.now();

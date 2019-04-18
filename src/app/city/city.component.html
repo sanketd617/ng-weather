@@ -20,12 +20,12 @@
       </div>
     </div>
     <div class="icon" [ngStyle]="{'color': iconColor ? iconColor : 'rgba(255, 255, 255, 0.7)'}">
-      <i [class]="icon ? icon : 'fas fa-ban'"></i>
+      <i [class]="icon ? icon : ''"></i>
     </div>
     <div class="temp">
       {{ temp ? temp.toFixed(1)+'°C' : ''}}
     </div>
-    <div class="temp-desc">
+    <div class="temp-desc {{ loading ? '' : description ? '': 'hoverable'}}">
       {{ loading ? '' : description ? description: 'Tap to select city'}}
     </div>
     <div class="divider">
@@ -34,7 +34,7 @@
     <div class="city-edit">
       <div class="city">{{ city ? city.substr(0, 10) + (city.length > 10 ? "..." : "") : ''}}</div>
       <div class="edit">
-        <i *ngIf="city" (click)="city ? rotated = !rotated : null" class="fa fa-edit"></i>
+        <i *ngIf="city" (click)="city ? rotated = !rotated : null" class="hoverable fa fa-edit"></i>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
     </div>
     <div class="options">
       <div *ngIf="!loading">
-        <div *ngFor="let option of options;" class="option" (click)="selectCity(option)">
+        <div *ngFor="let option of options;" class="option hoverable" (click)="selectCity(option)">
           {{option.name+", "+option.country}}
         </div>
       </div>
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div *ngIf="error">
+      <div *ngIf="error" class="text-danger error">
         {{ error }}
       </div>
     </div>

@@ -161,8 +161,10 @@
   overflow-y: scroll;
 }
 
-.root > .content.back .form{
-  height: 30%;
+.root > .content.back .error{
+  font-size: 1rem;
+  text-transform: none;
+  text-align: center;
 }
 
 .root > .content.back .options .option{
