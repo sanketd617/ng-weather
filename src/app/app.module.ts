@@ -6,6 +6,7 @@ import { CityComponent } from './city/city.component';
 import {FormsModule} from '@angular/forms';
 import {CitiesService} from './cities.service';
 import {HttpClientModule} from '@angular/common/http';
+import {WeatherService} from './weather.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,10 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [CitiesService],
+  providers: [
+    CitiesService,
+    WeatherService
+  ],
   exports: [],
   bootstrap: [AppComponent]
 })

@@ -2,14 +2,14 @@
 <div class="root">
   <div (click)="handleCardClick()" [class]="rotated ? 'content rotated' : 'content'" [ngStyle]="{'background-color': (background ? background[0] : 'lightgrey')}">
     <div class="min-max">
-      <div class="min"><small>{{ min ? 'min' : ''}}</small> {{ min ? min+'°C' : ''}}</div>
-      <div class="max"><small>{{ max ? 'max' : ''}}</small> {{ max ? max+'°C' : ''}}</div>
+      <div class="min"><small>{{ min ? 'min' : ''}}</small> {{ min ? min.toFixed(1)+'°C' : ''}}</div>
+      <div class="max"><small>{{ max ? 'max' : ''}}</small> {{ max ? max.toFixed(1)+'°C' : ''}}</div>
     </div>
     <div class="icon">
       <i [class]="icon ? icon : 'fas fa-ban'"></i>
     </div>
     <div class="temp">
-      {{ temp ? temp+'°C' : ''}}
+      {{ temp ? temp.toFixed(1)+'°C' : ''}}
     </div>
     <div class="temp-desc">
       {{ loading ? '' : description ? description: 'Tap to select city'}}

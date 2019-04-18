@@ -10,8 +10,8 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  height: 98%;
-  width: 98%;
+  height: 97%;
+  width: 96%;
   box-shadow: 1px 1px 5px lightgray, -1px 1px 5px lightgray;
   text-transform: uppercase;
   border-radius: 0.5rem;
@@ -39,6 +39,11 @@
   align-items: center;
 }
 
+.root > .content > .min-max{
+  height: 30%;
+  z-index: 1;
+}
+
 .min, .max, .city, .edit{
   width: 50%;
   padding-left: 1rem;
@@ -62,12 +67,12 @@
 /*icon part*/
 
 .root > .content > .icon{
-  height: 39%;
+  height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 100px;
-  color: white;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media screen and (max-width: 768px) {
@@ -94,10 +99,16 @@
 
 /*temp desc part*/
 .root > .content > .temp-desc{
-  height: 15%;
+  height: 27%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 576px) {
+  .root > .content > .icon{
+    font-size: 80px;
+  }
 }
 
 /*divider*/
