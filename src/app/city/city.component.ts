@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, DoCheck, Input, KeyValueDiffer, KeyValueDiffers, OnInit} from '@angular/core';
 import {CitiesService} from '../cities.service';
 import {WeatherService} from '../weather.service';
 
@@ -62,8 +62,10 @@ export class CityComponent implements OnInit {
   timer: number;
   options = [];
   error: string;
+  interval = null;
   @Input() updateFlag;
   @Input() updateInterval;
+  @Input() index;
 
   constructor(private citiesService: CitiesService, private weatherService: WeatherService) {
 
@@ -109,10 +111,10 @@ export class CityComponent implements OnInit {
     this.cityId = option.id;
     this.rotated = !this.rotated;
     this.options = [];
-    this.getCity();
+    this.getWeather();
   }
 
-  getCity() {
+  getWeather() {
     this.loading = true;
     this.weatherService.getWeather(this.cityId)
       .subscribe(
@@ -132,8 +134,12 @@ export class CityComponent implements OnInit {
           this.color = color[dayNightIndex];
           this.iconColor = iconColor[dayNightIndex];
 
-          if (this.updateFlag) {
-            setTimeout(() => this.getCity(), this.updateInterval);
+          if (!this.interval) {
+            this.interval = setInterval( () => {
+              if (this.updateFlag) {
+                this.getWeather();
+              }
+            }, this.updateInterval);
           }
         },
         (error) => this.error = error
