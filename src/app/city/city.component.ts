@@ -43,6 +43,7 @@ export class CityComponent implements OnInit {
   loading = false;
   timer: number;
   options = [];
+  error: string;
 
   constructor(private citiesService: CitiesService) {
     // this.city = ['Chandrapur', 'Nagpur', 'Nanded'][Math.floor(Math.random() * 3)];
@@ -64,7 +65,11 @@ export class CityComponent implements OnInit {
 
     this.timer = setTimeout(() => {
       this.loading = true;
-      this.options = this.citiesService.getCities();
+      this.citiesService.getCities()
+        .subscribe(
+          (cities) => this.options = cities.filter(city => city.name.toLowerCase().includes(this.city.toLowerCase())),
+          (error) => this.error = error
+          );
       this.loading = false;
     }, 1000);
   }

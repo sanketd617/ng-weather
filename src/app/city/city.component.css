@@ -51,6 +51,12 @@
 
 .edit{
   color: #2196f3;
+  width: 25%;
+}
+
+.city{
+  width: 75%;
+  text-overflow: ellipsis;
 }
 
 /*icon part*/
@@ -115,6 +121,7 @@
 
 .root > .content.back .options{
   height: 70%;
+  overflow-y: scroll;
 }
 
 .root > .content.back .form{

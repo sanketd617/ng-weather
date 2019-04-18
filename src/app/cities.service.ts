@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {throwError} from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 interface City {
   id: string;
@@ -19,37 +21,13 @@ export class CitiesService {
 
   url = '/assets/city.list.json';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getCities() {
-    return [
-      {
-        id: 707860,
-        name: 'Hurzuf',
-        country: 'UA',
-        coord: {
-          lon: 34.283333,
-          lat: 44.549999
-        }
-      },
-      {
-        id: 519188,
-        name: 'Novinki',
-        country: 'RU',
-        coord: {
-          lon: 37.666668,
-          lat: 55.683334
-        }
-      },
-      {
-        id: 1283378,
-        name: 'Gorkhā',
-        country: 'NP',
-        coord: {
-          lon: 84.633331,
-          lat: 28
-        }
-      },
-    ];
+  getCities(): Observable<City[]> {
+    return this.http.get<City[]>(this.url).pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    return throwError('Server error!');
   }
 }
