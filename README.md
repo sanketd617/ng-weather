@@ -1,6 +1,29 @@
 # NgWeather
+This web app displays weather data of different cities.
+The data is fetched from openweathermap API.
+
+## How to view weather data
+1. Tap any card
+2. After the card flips, enter the city name in the text box
+3. Wait for 1 second, it automatically loads available city names from the server
+4. Select the city from the list that appears
+5. The card flips again and shows the weather information
+
+## Offline?
+This web app can also show you the last weather data fetched from the server if offline. <br>
+Note: For data to be available offline, it must be fetched at least once.
+
+## How to prevent weather from updating
+Click the toggle switch on the right of the header. If the switch is blue, weather is updated every 5 minutes. If grey, no update is made.
+
+## Change city?
+Changing is the same process as viewing weather. The only difference is here the edit button on the bottom right of the city panel has to be clicked.
+
+
+## About the code
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+Every line of the code is explained in the form of comments in the code itself. Feel free to modify!
 
 ## Development server
 
