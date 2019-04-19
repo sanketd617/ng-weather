@@ -43,3 +43,28 @@
   background-color: #2196f3;
   transform: translateX(calc(200% - 5px));
 }
+
+.online{
+  color: green;
+  font-size: 1rem;
+}
+
+.offline{
+  color: grey;
+  font-size: 1rem;
+}
+
+.onlineFlag, .offlineFlag{
+  height: 15px;
+  width: 15px;
+  border-radius: 7.5px;
+  display: inline-block;
+}
+
+.onlineFlag{
+  background-color: green;
+}
+
+.offlineFlag{
+  background-color: grey;
+}

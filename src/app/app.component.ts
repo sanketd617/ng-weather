@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,10 @@ export class AppComponent {
   appName = 'Angular Weather';
   numCities = 9;
   updateFlag = true;
-  updateInterval = 60000*5;
+  updateInterval = 60000 * 5;
+  isOnline = false;
 
-  setFlag(flag){
+  setFlag(flag) {
     this.updateFlag = flag;
   }
 
@@ -22,4 +23,9 @@ export class AppComponent {
     }
     return a;
   }
+
+  updateIndicator(status){
+    this.isOnline = status;
+  }
+
 }

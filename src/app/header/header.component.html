@@ -6,6 +6,8 @@
         <div class="col-12 col-md-6">
           <div class="appName">
             {{ appName }}
+            <span *ngIf="isOnline" class="online"> <span class="onlineFlag"></span> Online</span>
+            <span *ngIf="!isOnline" class="offline"> <span class="offlineFlag"></span> Offline</span>
           </div>
         </div>
         <div class="col-12 col-md-6">

@@ -42,7 +42,7 @@
   <div [class]="!rotated ? 'content back rotated' : 'content back'">
     <div class="form">
       <div class="form-group">
-        <input (keyup)="cityChanged()" [(ngModel)]="city" placeholder="City.." type="text" class="form-control" id="city">
+        <input autocomplete="off" autocapitalize="off"  (keyup)="cityChanged()" [(ngModel)]="city" placeholder="City.." type="text" class="form-control" id="city">
       </div>
     </div>
     <div class="options">
