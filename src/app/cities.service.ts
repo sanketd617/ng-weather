@@ -19,12 +19,12 @@ interface City {
 })
 export class CitiesService {
 
-  url = '/assets/city.list.json';
+  url = 'http://3.89.93.88:3000/';
 
   constructor(private http: HttpClient) { }
 
-  getCities(): Observable<City[]> {
-    return this.http.get<City[]>(this.url).pipe(catchError(this.errorHandler));
+  getCities(city: string): Observable<City[]> {
+    return this.http.get<City[]>(this.url + city).pipe(catchError(this.errorHandler));
   }
 
   errorHandler(error: HttpErrorResponse) {

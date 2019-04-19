@@ -87,13 +87,13 @@ export class CityComponent implements OnInit {
 
     this.timer = setTimeout(() => {
       this.loading = true;
-      this.citiesService.getCities()
+      this.citiesService.getCities(this.city)
         .subscribe(
           (cities) => {
-            this.options = cities.filter(city => city.name.toLowerCase().includes(this.city.toLowerCase()));
+            this.options = cities;
 
-            if(this.options.length === 0){
-              this.error = "No city found!";
+            if (this.options.length === 0) {
+              this.error = 'No city found!';
             }
 
             this.loading = false;
