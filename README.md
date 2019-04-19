@@ -2,6 +2,9 @@
 This web app displays weather data of different cities.
 The data is fetched from openweathermap API.
 
+## Live preview
+This web app is hosted on AWS for preview. It can be view on http://3.89.93.88
+
 ## How to view weather data
 1. Tap any card
 2. After the card flips, enter the city name in the text box
