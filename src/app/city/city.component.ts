@@ -138,33 +138,61 @@ export class CityComponent implements OnInit {
 
   getWeather() {
     this.loading = true;
-    this.weatherService.getWeather(this.cityId)
-      .subscribe(
-        (weather) => {
-          const sunrise = weather.sys.sunrise * 1000;
-          const sunset = weather.sys.sunset * 1000;
-          const now = Date.now();
-          const dayNightIndex = now > sunrise && now < sunset ? 0 : 1;
-          this.min = weather.main.temp_min - 273.15;
-          this.max = weather.main.temp_max - 273.15;
-          this.temp = weather.main.temp - 273.15;
-          this.description = weather.weather[0].description;
-          this.loading = false;
-          this.icon = icons[weather.weather[0].main][dayNightIndex];
-          this.background = background[weather.weather[0].main][dayNightIndex];
-          this.color = color[dayNightIndex];
-          this.iconColor = iconColor[dayNightIndex];
+    if(this.isOnline){
+      this.weatherService.getWeather(this.cityId)
+        .subscribe(
+          (weather) => {
+            this.weatherService.storeOfflineWeather(weather);
+            const sunrise = weather.sys.sunrise * 1000;
+            const sunset = weather.sys.sunset * 1000;
+            const now = Date.now();
+            const dayNightIndex = now > sunrise && now < sunset ? 0 : 1;
+            this.min = weather.main.temp_min - 273.15;
+            this.max = weather.main.temp_max - 273.15;
+            this.temp = weather.main.temp - 273.15;
+            this.description = weather.weather[0].description;
+            this.loading = false;
+            this.icon = icons[weather.weather[0].main][dayNightIndex];
+            this.background = background[weather.weather[0].main][dayNightIndex];
+            this.color = color[dayNightIndex];
+            this.iconColor = iconColor[dayNightIndex];
 
-          if (!this.interval) {
-            this.interval = setInterval( () => {
-              if (this.updateFlag) {
-                this.getWeather();
-              }
-            }, this.updateInterval);
-          }
-        },
-        (error) => this.error = error
-      );
+            if (!this.interval) {
+              this.interval = setInterval( () => {
+                if (this.updateFlag) {
+                  this.getWeather();
+                }
+              }, this.updateInterval);
+            }
+          },
+          (error) => this.error = error
+        );
+    }
+    else{
+      const data = this.weatherService.getOfflineWeather(this.cityId);
+
+      if(data.error){
+        this.error = data.error;
+        this.loading = false;
+        this.rotated = true;
+        return;
+      }
+      const weather = data.data;
+      const sunrise = weather.sys.sunrise * 1000;
+      const sunset = weather.sys.sunset * 1000;
+      const now = Date.now();
+      const dayNightIndex = now > sunrise && now < sunset ? 0 : 1;
+      this.min = weather.main.temp_min - 273.15;
+      this.max = weather.main.temp_max - 273.15;
+      this.temp = weather.main.temp - 273.15;
+      this.description = weather.weather[0].description;
+      this.loading = false;
+      this.icon = icons[weather.weather[0].main][dayNightIndex];
+      this.background = background[weather.weather[0].main][dayNightIndex];
+      this.color = color[dayNightIndex];
+      this.iconColor = iconColor[dayNightIndex];
+    }
   }
+
 
 }

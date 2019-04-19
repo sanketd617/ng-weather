@@ -58,6 +58,40 @@ export class WeatherService {
     return this.http.get<Weather>(url).pipe(catchError(this.handleError));
   }
 
+  getOfflineWeather(id: string) {
+    const weather = JSON.parse(localStorage.getItem('weather'));
+
+    if (weather && weather.length > 0) {
+      const w = weather.filter((w) => w.id === id);
+
+      if (w.length > 0) {
+        return {
+          data: w[0],
+          error: null
+        };
+      }
+    }
+
+    return {
+      error: 'No offline weather data available!',
+      data: []
+    };
+  }
+
+  storeOfflineWeather(weather: Weather) {
+    const availableWeather = JSON.parse(localStorage.getItem('weather'));
+
+    let allWeather = [];
+
+    if (availableWeather) {
+      allWeather = [...allWeather, ...availableWeather];
+    }
+
+    allWeather = [...allWeather, weather];
+
+    localStorage.setItem('weather', JSON.stringify(allWeather));
+  }
+
   handleError(error: HttpErrorResponse) {
     return throwError('Server error!');
   }

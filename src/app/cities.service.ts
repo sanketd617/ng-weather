@@ -39,7 +39,7 @@ export class CitiesService {
 
     return {
       error: 'No offline data available!',
-      data: []
+      data: null
     };
   }
 
