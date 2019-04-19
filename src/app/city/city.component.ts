@@ -66,6 +66,7 @@ export class CityComponent implements OnInit {
   @Input() updateFlag;
   @Input() updateInterval;
   @Input() index;
+  @Input() isOnline;
 
   constructor(private citiesService: CitiesService, private weatherService: WeatherService) {
 
@@ -87,19 +88,35 @@ export class CityComponent implements OnInit {
 
     this.timer = setTimeout(() => {
       this.loading = true;
-      this.citiesService.getCities(this.city)
-        .subscribe(
-          (cities) => {
-            this.options = cities;
+      if(this.isOnline){
+        this.citiesService.getCities(this.city)
+          .subscribe(
+            (cities) => {
+              this.options = cities;
+              if (this.options.length === 0) {
+                this.error = 'No city found!';
+              }
+              else{
+                this.citiesService.storeOfflineCities(cities);
+              }
 
-            if (this.options.length === 0) {
-              this.error = 'No city found!';
-            }
-
-            this.loading = false;
-          },
-          (error) => this.error = error
+              this.loading = false;
+            },
+            (error) => this.error = error
           );
+      }
+      else{
+        const data = this.citiesService.getOfflineCities(this.city);
+        if(data.error){
+          this.error = data.error;
+          this.loading = false;
+          return;
+        }
+        this.options = data.data.filter((city) => city.name.toLowerCase().includes(this.city.toLowerCase()));
+
+        this.loading = false;
+        return;
+      }
       this.loading = true;
     }, 1000);
   }

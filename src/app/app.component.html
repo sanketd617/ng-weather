@@ -7,7 +7,7 @@
   <div class="col-12 col-lg-10 col-xl-8">
     <div class="row">
       <div class="col-6 col-md-4 col-lg-3 cityContainer" *ngFor="let i of range(numCities)">
-        <app-city [index]="i" [updateFlag]="updateFlag" [updateInterval]="updateInterval"></app-city>
+        <app-city [index]="i" [isOnline]="isOnline" [updateFlag]="updateFlag" [updateInterval]="updateInterval"></app-city>
       </div>
     </div>
   </div>

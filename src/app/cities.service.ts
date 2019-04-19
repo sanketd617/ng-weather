@@ -27,6 +27,36 @@ export class CitiesService {
     return this.http.get<City[]>(this.url + city).pipe(catchError(this.errorHandler));
   }
 
+  getOfflineCities(city: string) {
+    const cities = JSON.parse(localStorage.getItem('cities'));
+
+    if (cities && cities.length > 0) {
+      return {
+        error: null,
+        data: cities.filter((cityObj) => cityObj.name.toLowerCase().includes(city.toLowerCase()))
+      };
+    }
+
+    return {
+      error: 'No offline data available!',
+      data: []
+    };
+  }
+
+  storeOfflineCities(cities: City[]) {
+      const availableCities = JSON.parse(localStorage.getItem('cities'));
+
+      let allCities = [];
+
+      if (availableCities) {
+        allCities = [...allCities, ...availableCities];
+      }
+
+      allCities = [...allCities, ...cities];
+
+      localStorage.setItem('cities', JSON.stringify(allCities));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     return throwError('Server error!');
   }
