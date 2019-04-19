@@ -1,6 +1,9 @@
 
 <div class="root">
-  <div (click)="handleCardClick()" [class]="rotated ? 'content rotated' : 'content'" [ngStyle]="{'background-color': (background ? background : 'lightgrey'), 'color': (color ? color : '#424242')}">
+  <div
+    (click)="handleCardClick()"
+    [class]="rotated ? 'content rotated' : 'content'"
+    [ngStyle]="{'background-color': (background ? background : 'lightgrey'), 'color': (color ? color : '#424242')}">
     <div class="min-max">
       <div class="min">
         <div>

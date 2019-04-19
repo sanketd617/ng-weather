@@ -7,28 +7,33 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() isOnline;
+  @Input() isOnline; // online status
   @Input() appName;
-  @Input() updateFlag;
-  @Output() updateEvent = new EventEmitter<boolean>();
-  @Output() onlineEvent = new EventEmitter<boolean>();
+  @Input() updateFlag;  // should update ?
+  @Output() updateEvent = new EventEmitter<boolean>(); // eventEmitter for updateFlag
+  @Output() onlineEvent = new EventEmitter<boolean>(); // eventEmitter for online status
   constructor() { }
 
   ngOnInit() {
+    // add listeners for internet connectivity
     window.addEventListener('online',  this.updateIndicator);
     window.addEventListener('offline', this.updateIndicator);
     setTimeout(() => {
+      // check if online
       if (navigator.onLine) {
+        // set online status to true
         this.onlineEvent.emit(true);
       }
     }, 1000);
   }
 
   toggleUpdate() {
+    // toggle update flag
     this.updateEvent.emit(!this.updateFlag);
   }
 
   updateIndicator = (event) => {
+    // set online status based on event
     switch (event.type) {
       case 'online':
         this.onlineEvent.emit(true);
